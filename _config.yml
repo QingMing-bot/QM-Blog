@@ -5,7 +5,7 @@
 # 站点基本信息
 title: "清明"                      # 站点标题，显示在浏览器标签和网站头部
 subtitle: '十行俱下犹觉浅，一朝闭门书五车'  # 站点副标题，显示在标题下方
-description: ''                      # 站点描述，用于 SEO 和搜索引擎展示
+description: '求索无际'                      # 站点描述，用于 SEO 和搜索引擎展示
 keywords: ''                         # 站点关键词，SEO 优化用
 author: "清明"                      # 作者名称
 language: zh-CN                      # 站点语言，影响主题显示和 SEO
