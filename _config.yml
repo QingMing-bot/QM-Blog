@@ -98,7 +98,7 @@ ignore: []
 # 扩展
 ## 插件：https://hexo.io/plugins/
 ## 主题：https://hexo.io/themes/
-theme: tranquility
+theme: maupassant
 
 # 部署
 ## 文档：https://hexo.io/docs/one-command-deployment

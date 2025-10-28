@@ -1,0 +1,178 @@
+disqus:
+  enable: false ## 如果您想使用Disqus评论系统，请将该值设置为true。
+  shortname: ## 您的disqus_shortname，例如username
+  api: ## 您可以使用Disqus API在中国大陆无障碍访问Disqus评论，例如https://disqus.skk.moe/disqus/
+  apikey: ## 您在Disqus API应用中获得的API密钥，例如yk00ZB1fjYGRkrCrDDRYDUjpp26GJWJiJRZQZ5SY0r3th5FMW6pnSzQMnWH7ua7r
+  admin: ## 您的Disqus管理员用户名，例如username
+  admin_label: ## Disqus管理员徽章的文本，例如Mod
+uyan: ## 您的uyan_id，例如1234567
+livere: ## 您的livere data-uid，例如MTAyMC8zMDAxOC78NTgz
+changyan: ## 您的changyan appid，例如cyrALsXc8
+changyan_conf: ## 您的changyan conf，例如prod_d8a508c2825ab57eeb43e7c69bba0e8b
+gitalk: ## See: https://github.com/gitalk/gitalk
+  enable: false ## 如果您想使用Gitment评论系统，请将该值设置为true。
+  owner: ## 您的GitHub ID，例如username
+  repo: ## 存储评论的仓库，请确保您是该仓库的所有者，例如gitalk.github.io
+  client_id: ## GitHub客户端ID，例如75752dafe7907a897619
+  client_secret: ## GitHub客户端密钥，例如ec2fb9054972c891289640354993b662f4cccc50
+  admin: ## Github的所有者和合作者，只有这些人可以初始化Github问题。
+valine: ## 见:https://valine.js.org
+  enable: false ## 如果您想使用Valine评论系统，请将该值设置为true。
+  appid: ## 您的LeanCloud应用App ID，例如pRBBL2JR4N7kLEGojrF0MsSs-gzGzoHsz
+  appkey: ## 您的LeanCloud应用App Key，例如tjczHpDfhjYDSYddzymYK1JJ
+  serverURLs: ## 如果您是中国的“LeanCloud”，则此选项不是必填项。您“LeanCloud”的REST API服务器URL，例如https://prbbl2jr.api.lncldglobal.com
+  notify: false ## 邮件通知，参见https://github.com/xCss/Valine/wiki/Valine-评论系统中的邮件提醒设置
+  verify: false ## 验证码。
+  placeholder: Just so so ## 评论框占位符。
+  avatar: "mm" ## Gravatar类型，参见https://github.com/xCss/Valine/wiki/avatar-setting-for-valine
+  pageSize: 10 ## 每页评论数。
+  guest_info: nick,mail,link ## 评论者的属性。
+minivaline: ## See: https://github.com/MiniValine/MiniValine
+  enable: false ## 如果您想使用MiniValine评论系统，请将该值设置为true。
+  appId: ## 您的LeanCloud应用App ID，例如pRBBL2JR4N7kLEGojrF0MsSs-gzGzoHsz
+  appKey: ## 您的LeanCloud应用App Key，例如tjczHpDfhjYDSYddzymYK1JJ
+  placeholder: Write a Comment ## 评论框占位符。
+  adminEmailMd5: ## 管理员邮箱的MD5值，用于显示管理员标志。
+  math: true ## 支持MathJax。
+  md: true ## 支持Markdown。
+  # MiniValine的显示语言取决于用户的浏览器或系统环境
+  # 如果您希望访问您网站的每个人都看到统一的语言，可以设置强制语言值
+  # 可用值：en  | zh-CN | (以及更多)
+  # 更多国际化信息：https://github.com/MiniValine/minivaline-i18n
+  lang:
+waline: ## 见:https://waline.js.org/
+  enable: false ## 如果您想使用Waline评论系统，请将该值设置为true。
+  serverURL: ## 您的服务器URL，例如https://your-domain.vercel.app
+  pageSize: 30 ## 每页显示的评论数。
+  wordLimit: 500 ## 评论字数限制，0表示无限制。
+  requiredMeta: ['nick','mail'] ## 必填的用户信息，例如['nick','mail','link']
+  count: 5 ## 最近评论小部件中显示的评论数量，默认为10。
+utterances: ## 见: https://utteranc.es
+  enable: false ## 如果您想使用Utterances评论系统，请将该值设置为true。
+  repo: ## Utterances将连接到的仓库，例如tufu9441/comments
+  identifier: title ## 博客文章与GitHub问题之间的映射。
+  theme: github-light ## 选择与您的博客匹配的Utterances主题。
+twikoo: ## 见: https://twikoo.js.org
+  enable: false ## 如果您想使用twikoo评论系统，请将该值设置为true。
+  envId: ## 腾讯云云开发环境ID
+  region: ## 腾讯云云开发区域，例如ap-shanghai
+  path: ## 文章路径，例如window.location.pathname
+
+google_search: true ## 使用Google搜索，true/false。
+baidu_search: false ## 使用百度搜索，true/false。
+swiftype: ## 您的swiftype_key，例如m7b11ZrsT8Me7gzApciT
+self_search: false ## 使用基于jQuery的本地搜索引擎，true/false。
+google_analytics: ## 您的Google Analytics跟踪ID，例如UA-42425684-2
+baidu_analytics: ## 您的百度Analytics跟踪ID，例如8006843039519956000
+microsoft_clarity: ## 您的Microsoft Clarity跟踪ID，例如zg2ctuea9j
+fancybox: true ## 如果您想使用fancybox，请将该值设置为true。
+show_category_count: true ## 如果您想在侧边栏小部件中显示分类计数，请将该值设置为true。
+toc_number: true ## 如果您想在目录中添加列表编号，请将该值设置为true。
+shareto: true ## 如果您想使用分享按钮，请将该值设置为true，并且您必须安装hexo-helper-qrcode。
+busuanzi: false ## 如果您想使用Busuanzi页面浏览量，请将该值设置为true。
+wordcount: true ## 如果您想显示每篇文章的字数统计和预计阅读时间，请将该值设置为true，并且您必须安装hexo-wordcount。
+widgets_on_small_screens: false ## 设置为true可以在小屏幕上启用小部件。
+canvas_nest:
+  enable: true ## 如果您想使用动态背景，请将该值设置为true，您还可以填写以下参数来自定义动态效果，或者只需将它们留空以保持默认效果。
+  color: ## 颜色的RGB值，例如"100,99,98"
+  opacity: ## 线条的透明度，例如"0.7"
+  zIndex: ## 背景的z-index属性，例如"-1"
+  count: ## 线条的数量，例如"150"
+donate:
+  enable: false ## 如果您想在每篇文章后显示捐赠按钮，请将该值设置为true，并根据需要填写以下项目。您还可以通过向前端添加“donate: true”项目来启用页面中的捐赠按钮。
+  github: ## GitHub URL，例如https://github.com/Kaiyuan/donate-page
+  alipay_qr: ## Alipay二维码图像的路径，例如/img/AliPayQR.png
+  wechat_qr: ## Wechat二维码图像的路径，例如/img/WeChatQR.png
+  btc_qr: ## Bitcoin二维码图像的路径，例如/img/BTCQR.png
+  btc_key: ## Bitcoin密钥，例如1KuK5eK2BLsqpsFVXXSBG5wbSAwZVadt6L
+  paypal_url: ## Paypal URL，例如https://www.paypal.me/tufu9441
+post_copyright:
+  enable: true ## 如果您想在每篇文章后显示版权信息，请将该值设置为true，并根据需要填写以下项目。
+  author: 不妨清明梦 ## 您的作者名称，例如tufu9441
+  copyright_text: 如转载请注明来源 ## 您的版权文本，例如作者拥有版权，请注明转载来源。
+love: true ## 如果您希望在点击任意位置时出现爱心，请将该值设置为true。
+plantuml: ## 使用PlantUML生成UML图，必须安装hexo-filter-plantuml （https://github.com/miao1007/hexo-filter-plantuml）。
+  render: "PlantUMLServer" ## Local or PlantUMLServer.
+  outputFormat: "svg" ## Common options: svg/png
+copycode: true ## 如果您想启用一键复制代码块，请将值设置为true。
+dark: true ## 如果您想在明暗主题之间切换，请将值设置为true。
+totop: true ## 如果您想使用火箭按钮返回顶部，请将值设置为true。
+external_css: false ## 如果您想加载外部CSS文件，请将值设置为true，并在source/css文件夹中创建一个名为"external.css"的文件。
+post_content_length: 50 ## 设置在主页上显示的文章摘要的长度，当没有写描述时。
+icp: ## 中国大陆仅显示ICP信息在底部。
+
+menu:
+  - page: 首页
+    directory: .
+    icon: fa-home
+  - page: 归档
+    directory: archives/
+    icon: fa-archive
+  - page: 分类    # 新增分类页
+    directory: categories/
+    icon: fa-folder
+  - page: 标签          # 新增标签页
+    directory: tags/
+    icon: fa-tags
+  - page: 关于
+    directory: about/
+    icon: fa-user
+  - page: 留言
+    directory: guestbook/
+    icon: fa-rss
+
+widgets: ## 提供的七个侧边栏小部件：搜索、信息、分类、标签、最近文章、最近评论
+  - search
+  - info
+  - category
+  - tag
+  - recent_posts
+  - recent_comments
+
+info:
+  avatar: /img/custom-avatar.jpg
+  discription: 人性的背后是白云苍狗，愿你我都能做生活的高手。
+  outlinkitem:
+    - name: twitter
+      outlink: https://twitter.com/username
+      message: Twitter联系
+    - name: envelope
+      outlink: mailto:15237483103@163.com
+      message: 网易邮箱
+    - name: github
+      outlink: https://github.com/QingMing-bot
+      message: 关注我的Github
+    - name: rss
+      outlink: tencent://message/?uin=3198456621
+      message: 添加QQ好友
+
+# links:
+#  - title: site-name1
+#    url: http://www.example1.com/
+#    src: https://www.example1.com/favicon.ico
+#    desc: XXX's Blog
+#  - title: site-name2
+#    url: http://www.example2.com/
+#    src: https://www.example2.com/favicon.ico
+#    desc: YYY's Blog
+#  - title: site-name3
+#    url: http://www.example3.com/
+#    src: https://www.example3.com/favicon.ico
+#    desc: ZZZ's Blog
+
+timeline:
+  - num: 1
+    word: 2014/06/12-Start
+  - num: 2
+    word: 2014/11/29-XXX
+  - num: 3
+    word: 2015/02/18-DDD
+  - num: 4
+    word: More
+
+# Static files
+js: js
+css: css
+
+# Theme version
+version: 1.0.0
