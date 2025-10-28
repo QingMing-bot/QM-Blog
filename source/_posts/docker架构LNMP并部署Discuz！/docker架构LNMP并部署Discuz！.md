@@ -13,7 +13,7 @@ description: 这篇文章选择我的毕业设计作为主题，用做博客的�
 *本篇文章基于Ubuntu24.04系统作为基础*
 
 # 1.事前准备
-## 1.1安装docker
+## 1.1 安装docker
 随着容器技术的兴起，传统架构面对的环境复杂、难以迁移，且容易因依赖冲突导致“开发环境正常，生产环境失效”等问题都能通过容器化架构完美解决；
 故而，本篇文章我们采用docker容器来进行LNMP环境的架构。
 首先我们完成docker容器的安装：
@@ -41,7 +41,7 @@ sudo apt install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin d
 这样我们的docker环境就安装完成了
 可以运行`docker --version`进行测试，预期输出：类似于`Docker version 24.0.7, build afdd53b`
 
-## 1.2基础目录认知
+## 1.2 基础目录认知
 首先我们对于正式架构前需要有一个目录认知，以便后续我们进行部署及管理：
 ```
 discuz-docker/
@@ -54,7 +54,7 @@ discuz-docker/
 
 # 2.LNMP架构
 
-## 2.1docker网络搭建
+## 2.1 docker网络搭建
 只需创建一下即可
 ```
 docker network create discuz-network
@@ -84,7 +84,7 @@ docker run --name discuz-mysql --network discuz-network -p 3306:3306 -e MYSQL_RO
 - `mysql`：是拉取的镜像名称，代表启动的是该镜像
 
 
-## 2.3Nginx
+## 2.3 Nginx
 首先从Docker的公共仓库 Dockerhub 下载 Nginx 镜像：
 ```
 docker pull nginx
@@ -125,7 +125,7 @@ docker restart discuz-nginx
 ```
 这样就可以直接在本地修改配置文件了。
 
-## 2.3PHP
+## 2.3 PHP
 首先下载php-fpm镜像：
 由于dockerhub默认的php-fpm为8.1.1版本，其中没有内置mysqli扩展，所以我们需要自己构建dockerfile来打包一个我们自己的php-fpm
 直接在项目根目录下构建dokcerfile：
@@ -225,7 +225,7 @@ docker run --name discuz-php --network discuz-network \
 -d my-php-fpm
 ```
 
-## Nginx容器支持FPM
+## 2.4 Nginx容器支持FPM
 打开 nginx 的配置文件
 ```
 vi /home/program/discuz-docker/nginx/config/default.conf
@@ -299,3 +299,184 @@ docker run --name discuz-nginx -p 80:80 --network discuz-network \
 ```
 
 这样一来我们的LNMP架构就完成了！
+
+# 3.安装Discuz！论坛
+使用weget下载最新版Discuz！安装包
+```
+weget -P /home/program/discuz-docker/www https://foruda.gitee.com/attach_file/1756976263314096137/discuz_x3.5_sc_utf8_20250901.zip?token=2c73766cc44e3159933cc411cf1e7afb&ts=1761133475&attname=Discuz_X3.5_SC_UTF8_20250901.zip 
+```
+## 3.1 解压
+```
+# 进入项目目录
+cd /home/program/discuz-docker/www/
+
+# 解压Discuz安装包
+unzip Discuz_X3.5_SC_UTF8_20250901.zip
+
+# 查看解压后的文件结构
+ls -la
+```
+
+## 3.2 部署Discuz文件
+```
+# 将Discuz文件复制到网站根目录
+cp -r upload/* ./
+
+# 设置文件权限（非常重要！）
+chmod -R 777 config/ data/ uc_server/ uc_client/
+
+# 检查文件是否部署成功
+ls -la | grep -E "(index.php|admin.php|install)"
+```
+
+## 3.3 检查Nginx配置
+确保您的`config/default.conf`配置文件支持Discuz。如果需要，可以这样配置：
+```
+# 编辑Nginx配置
+vim config/default.conf
+```
+确保配置包含以下内容：​​
+```
+server {
+    listen 80;
+    server_name localhost;
+    root /usr/share/nginx/html;
+    index index.html index.htm index.php;
+    
+    location / {
+        try_files $uri $uri/ /index.php?$args;
+    }
+    
+    location ~ \.php$ {
+        fastcgi_pass discuz-php:9000;
+        fastcgi_index index.php;
+        fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+        include fastcgi_params;
+    }
+    
+    # Discuz静态文件缓存
+    location ~* \.(js|css|png|jpg|jpeg|gif|ico)$ {
+        expires 1y;
+        add_header Cache-Control "public, immutable";
+    }
+}
+```
+
+## 3.4 重启服务使配置生效
+```
+# 重启Nginx容器
+docker restart discuz-nginx
+
+# 检查容器状态
+docker ps
+
+# 查看Nginx日志确认无错误
+docker logs discuz-nginx
+```
+
+## 3.5 创建Discuz数据库
+```
+# 进入MySQL容器
+docker exec -it discuz-mysql mysql -uroot -p
+
+# 在MySQL中执行以下命令（将your_password替换为实际密码）：
+CREATE DATABASE discuz DEFAULT CHARSET utf8mb4 COLLATE utf8mb4_unicode_ci;
+CREATE USER 'discuz_user'@'%' IDENTIFIED BY '123456';
+GRANT ALL PRIVILEGES ON discuz.* TO 'discuz_user'@'%';
+FLUSH PRIVILEGES;
+EXIT;
+```
+
+## 3.6 通过Web界面安装Discuz
+1.​打开浏览器访问​​：http://您的服务器IP/install/
+
+2.​​按照安装向导操作​​：
+
+设置数据库信息：
+数据库服务器：discuz-mysql
+数据库名：discuz
+数据库用户名：discuz_user
+数据库密码：123456 或 你自己设置的密码
+表前缀：pre_（默认即可）
+
+3.​​设置管理员账户​​：
+论坛名称：您的论坛名称
+管理员账号/密码/邮箱
+
+## 3.7 安装后的操作
+```
+# 删除安装目录（安全考虑）
+rm -rf install/
+
+# 再次检查文件权限
+chmod -R 755 ./
+chmod -R 777 data/ config/ uc_server/data/ uc_client/data/
+```
+
+# 4.配置HTTPS
+## 4.1 SSL 证书申请
+***首先需要确保具有可解析的域名***
+第一步：安装certbot
+```
+apt update && apt install -y certbot
+```
+第二步：申请Let`s Encrypt证书
+```
+certbot certonly --standalone -d 你的域名
+```
+根据提示完成证书申领
+完成后你的域名存在于/etc/letsencrypt/live/你的域名/ 路径
+
+## 4.2 配置nginx
+```
+vim /home/program/discuz-docker/nginx/conf.d/default.conf
+```
+确保配置如下
+```
+# HTTP 重定向到 HTTPS
+server {
+    listen 80;
+    server_name 你的域名;
+    return 301 https://$host$request_uri;
+    # 你也可以选择强制重定向到某端口，如3333
+    # return 301 https://$host:3333$request_uri;
+}
+
+# HTTPS 服务器配置
+server {
+    listen 443 ssl http2;
+    # 如果你选择指定端口，则这里需要为指定端口提供https
+    # listen 3333 ssl http2;
+    server_name 你的域名;
+
+    ssl_certificate /etc/letsencrypt/live/你的域名/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/你的域名/privkey.pem;
+    # ... 
+}
+```
+
+## 4.3 重新启动nginx容器
+```
+# 停止旧容器
+docker rm -f discuz-nginx
+
+# 使用正确的卷挂载启动新容器
+docker run -d --name discuz-nginx \
+  --network discuz-network \
+  -p 80:80 \
+  -p 443:443 \
+  -v /etc/letsencrypt:/etc/letsencrypt:ro \
+  -v /home/program/discuz-docker/www:/usr/share/nginx/html:ro \
+  -v /home/program/discuz-docker/nginx/conf.d:/etc/nginx/conf.d:ro \
+  nginx
+```
+
+## 4.4 最后在Discuz！后台配置
+- 访问 https://你的域名/admin.php
+- 进入 ​​全局 → 站点信息​​
+- 修改 ​​网站 URL​​ 为：https://hui.lch.ink/
+- 保存设置
+
+这样一来完整的LNMP架构及Discuz！论坛就部署完毕了，感谢阅读！
+
+**心潮伏涌意难平，几心悲喜似流萤**
